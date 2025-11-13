@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decentralized Digital Identity & Credential Vault</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* -------- GLOBAL STYLES -------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { scroll-behavior: smooth; }
+    body {
+      font-family: "Orbitron", sans-serif;
+      background: radial-gradient(circle at center, #050505, #000);
+      color: #e0e0e0;
+      overflow-x: hidden;
+    }
+
+    /* -------- BACKGROUND PARTICLES -------- */
+    .particle {
+      position: absolute;
+      width: 6px; height: 6px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      animation: moveParticle 12s linear infinite;
+    }
+
+    @keyframes moveParticle {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* -------- HEADER -------- */
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at 20% 30%, #111, #000);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      color: #00ffff;
+      text-shadow: 0 0 15px #00ffff, 0 0 30px #0088ff;
+      animation: glowPulse 2.5s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from { text-shadow: 0 0 10px #00ffff; }
+      to { text-shadow: 0 0 30px #0088ff, 0 0 60px #00ffff; }
+    }
+
+    header p {
+      max-width: 700px;
+      color: #b3f5ff;
+      margin-top: 15px;
+      letter-spacing: 1px;
+      font-size: 1.2em;
+      opacity: 0.85;
+      animation: fadeUp 2s ease;
+    }
+
+    .btn-primary {
+      margin-top: 40px;
+      padding: 14px 36px;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #00ffff, #0078ff);
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 20px #00ffff;
+      transition: 0.4s;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(90deg, #ff00cc, #00ffff);
+      color: white;
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #ff00cc, 0 0 50px #00ffff;
+    }
+
+    /* -------- SECTIONS -------- */
+    section {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    h2 {
+      color: #00ffff;
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* Glassmorphism container */
+    .glass-box {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 25px;
+      margin-top: 30px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.1);
+      transition: 0.3s;
+    }
+
+    .glass-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 40px rgba(0,255,255,0.3);
+    }
+
+    /* -------- FEATURES -------- */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .feature-box {
+      background: rgba(0,255,255,0.08);
+      border: 1px solid rgba(0,255,255,0.2);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: inset 0 0 10px rgba(0,255,255,0.3);
+      transition: 0.4s;
+    }
+
+    .feature-box:hover {
+      background: rgba(0,255,255,0.15);
+      transform: scale(1.05);
+    }
+
+    .feature-box i {
+      font-size: 2.2em;
+      color: #00ffff;
+      margin-bottom: 12px;
+    }
+
+    .feature-box h3 {
+      color: #80ffff;
+      margin-bottom: 10px;
+    }
+
+    /* -------- USE CASES -------- */
+    .use-cases {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .use-case {
+      width: 220px;
+      background: linear-gradient(135deg, #00ffff30, #ff00ff20);
+      border-radius: 15px;
+      border: 1px solid #00ffff40;
+      color: #e0e0e0;
+      padding: 25px;
+      transition: 0.4s;
+    }
+
+    .use-case:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px #00ffff60;
+    }
+
+    .use-case i {
+      font-size: 2em;
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
+
+    /* -------- CONTACT -------- */
+    #contact a {
+      color: #00ffff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    #contact a:hover {
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff;
+    }
+
+    /* -------- FOOTER -------- */
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #aaa;
+      background: #050505;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 80px;
+      font-size: 0.9em;
+      letter-spacing: 1px;
+    }
+
+    /* -------- ANIMATIONS -------- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 2em; }
+      .features { grid-template-columns: 1fr; }
+      .use-cases { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating particles -->
+  <div class="particle" style="top:80%; left:20%; animation-delay:0s;"></div>
+  <div class="particle" style="top:90%; left:60%; animation-delay:3s;"></div>
+  <div class="particle" style="top:85%; left:80%; animation-delay:5s;"></div>
+
+  <header>
+    <h1>Decentralized Digital Identity & Credential Vault</h1>
+    <p>Empowering individuals with Secure, Private, and Self-Sovereign Data Ownership</p>
+    <a href="#overview" class="btn-primary">Enter the Future</a>
+  </header>
+
+  <section id="overview" class="fade-in">
+    <h2>Overview</h2>
+    <div class="glass-box">
+      <p>
+        The <strong>Decentralized Digital Identity & Credential Vault</strong> leverages blockchain,
+        cryptography, and zero-knowledge proofs to create a new paradigm of secure digital identity.
+        Users gain full ownership of their data — verifiable, private, and portable — across platforms and borders.
+      </p>
+    </div>
+  </section>
+
+  <section id="features" class="fade-in">
+    <h2>Core Features</h2>
+    <div class="features">
+      <div class="feature-box">
+        <i class="fa-solid fa-user-shield"></i>
+        <h3>Self-Sovereign Identity</h3>
+        <p>Users control and own their digital identity across all ecosystems.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-link"></i>
+        <h3>Blockchain Verification</h3>
+        <p>Credentials verified on decentralized ledgers ensure authenticity.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-lock"></i>
+        <h3>Encrypted Vault</h3>
+        <p>All personal data is encrypted and secured via advanced cryptography.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-eye-slash"></i>
+        <h3>Zero-Knowledge Proofs</h3>
+        <p>Prove identity claims without revealing underlying sensitive information.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-globe"></i>
+        <h3>Interoperable Standards</h3>
+        <p>Fully compliant with DIDs and Verifiable Credential frameworks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="use-cases" class="fade-in">
+    <h2>Use Cases</h2>
+    <div class="use-cases">
+      <div class="use-case"><i class="fa-solid fa-id-card"></i><p>Digital KYC & Governance</p></div>
+      <div class="use-case"><i class="fa-solid fa-graduation-cap"></i><p>Certificate Validation</p></div>
+      <div class="use-case"><i class="fa-solid fa-stethoscope"></i><p>Healthcare Data Security</p></div>
+      <div class="use-case"><i class="fa-solid fa-passport"></i><p>Cross-Border Identity</p></div>
+      <div class="use-case"><i class="fa-solid fa-fingerprint"></i><p>Web3 Authentication</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="fade-in">
+    <h2>Connect With Us</h2>
+    <div class="glass-box">
+      <p>Join the movement towards a decentralized identity future.<br>
+      📧 <a href="mailto:info@digitalidentityvault.com">info@digitalidentityvault.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Decentralized Identity Project — Designed for the Future of Trust.</p>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
